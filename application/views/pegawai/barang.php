@@ -109,7 +109,7 @@
 
      <!-- Modal Tambah -->
      <div class="modal fade" id="tambah_data" tabindex="-1" role="dialog" aria-labelledby="tambah_dataTitle" aria-hidden="true">
-         <div class="modal-dialog modal-dialog-centered" role="document">
+         <div class="modal-dialog modal-dialog-centered  modal-lg" role="document">
              <div class="modal-content">
                  <div class="modal-header">
                      <h5 class="modal-title" id="exampleModalLongTitle">Tambah Data Barang</h5>
@@ -168,7 +168,7 @@
      </div>
 
      <div class="modal fade" id="edit_data" tabindex="-1" role="dialog" aria-labelledby="edit_dataTitle" aria-hidden="true">
-         <div class="modal-dialog modal-dialog-centered" role="document">
+         <div class="modal-dialog modal-dialog-centered  modal-lg" role="document">
              <div class="modal-content">
                  <div class="modal-header">
                      <h5 class="modal-title" id="exampleModalLongTitle">Edit Data Barang</h5>

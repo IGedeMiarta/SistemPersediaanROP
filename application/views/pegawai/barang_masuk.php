@@ -43,7 +43,8 @@
                                  <th scope="col">Nama Barang</th>
                                  <th scope="col">Supplier</th>
                                  <th scope="col">Jumlah Masuk</th>
-                                 <th scope="col">User</th>
+                                 <th scope="col">Harga (st)</th>
+                                 <th scope="col">Pegawai</th>
                                  <th scope="col">Opsi</th>
                              </tr>
                          </thead>
@@ -58,6 +59,7 @@
                                      <td><?= $b->nama_barang ?></td>
                                      <td><?= $b->supplier ?></td>
                                      <td><?= $b->jumlah . ' ' . $b->satuan ?></td>
+                                     <td><?= $b->harga ?></td>
                                      <td><?= $b->pegawai ?></td>
                                      <td>
                                          <!-- <a href="" data-barang="<?= $b->kd_masuk ?>" class="badge badge-warning edit-barang" data-toggle="modal" data-target="#edit_data"><i class="fas fa-edit"></i> Edit</a> -->

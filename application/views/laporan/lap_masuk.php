@@ -66,27 +66,29 @@
                          <thead>
                              <tr>
                                  <th scope="col">No</th>
-                                 <th scope="col">Nama Barang </th>
+                                 <th scope="col">No. Transaksi</th>
+                                 <th scope="col">Tanggal</th>
+                                 <th scope="col">Nama Barang</th>
                                  <th scope="col">Supplier</th>
-                                 <th scope="col">Datang</th>
-                                 <th class="text-center" scope="col">
-                                     Jumlah Masuk
-                                 </th>
+                                 <th scope="col">Jumlah Masuk</th>
+                                 <th scope="col">Harga (st)</th>
+                                 <th scope="col">Pegawai</th>
 
                              </tr>
                          </thead>
-
                          <tbody>
                              <?php
                                 $no = 1;
-                                foreach ($masuk as $mtrl) { ?>
+                                foreach ($masuk as $b) { ?>
                                  <tr>
                                      <th width="10px" scope="row"><?= $no++ ?></th>
-
-                                     <td><?= $mtrl->nama_barang ?></td>
-                                     <td><?= $mtrl->nama_supp ?></td>
-                                     <td><?= date("d M Y", strtotime($mtrl->waktu)) ?></td>
-                                     <td class="text-center"><?= $mtrl->jumlah . ' ' . $mtrl->detail ?> </td>
+                                     <td><?= $b->kode ?></td>
+                                     <td><?= date("d M Y", strtotime($b->waktu)) ?></td>
+                                     <td><?= $b->nama_barang ?></td>
+                                     <td><?= $b->supplier ?></td>
+                                     <td><?= $b->jumlah . ' ' . $b->satuan ?></td>
+                                     <td><?= $b->harga ?></td>
+                                     <td><?= $b->pegawai ?></td>
 
                                  </tr>
                              <?php } ?>

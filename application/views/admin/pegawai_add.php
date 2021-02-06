@@ -9,8 +9,8 @@
                      </div>
                      <div class="col-sm-6">
                          <ol class="breadcrumb float-sm-right">
-                             <li class="breadcrumb-item"><a href="<?= base_url('owner') ?>">Home</a></li>
-                             <li class="breadcrumb-item"><a href="<?= base_url('owner/pegawai') ?>">Pegawai</a></li>
+                             <li class="breadcrumb-item"><a href="<?= base_url('admin') ?>">Home</a></li>
+                             <li class="breadcrumb-item"><a href="<?= base_url('admin/pegawai') ?>">Pegawai</a></li>
                              <li class="breadcrumb-item active">Tambah Pegawai</li>
                          </ol>
                      </div>
@@ -24,7 +24,7 @@
              <!-- Default box -->
              <div class="card">
                  <div class="card-body">
-                     <form method="POST" action="<?= base_url('owner/pegawai_add_act') ?>">
+                     <form method="POST" action="<?= base_url('admin/pegawai_add_act') ?>">
                          <div class="form-group row">
                              <label for="example-text-input" class="col-sm-2 col-form-label">Nama</label>
                              <div class="col-sm-10">

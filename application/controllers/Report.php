@@ -46,9 +46,9 @@ class Report extends CI_Controller
             $mulai = $this->input->get('tanggal_mulai');
             $sampai = $this->input->get('tanggal_sampai');
 
-            $data['masuk'] = $this->laporan->tgl_keluar($mulai, $sampai);
+            $data['keluar'] = $this->laporan->tgl_keluar($mulai, $sampai);
         } else {
-            $data['masuk'] = $this->laporan->m_keluar();
+            $data['keluar'] = $this->laporan->m_keluar();
         }
         $data['judul'] = "Laporan Barang Keluar";
         $this->load->view('temp/header', $data);
@@ -64,7 +64,7 @@ class Report extends CI_Controller
             $sampai = $this->input->get('tanggal_sampai');
             // mengambil data peminjaman berdasarkan tanggal mulai sampai tanggal sampai
 
-            $data['masuk'] = $this->laporan->tgl_keluar($mulai, $sampai);
+            $data['keluar'] = $this->laporan->tgl_keluar($mulai, $sampai);
 
             $this->load->view('laporan/cetak/keluar_cetak', $data);
         } else {
@@ -77,9 +77,9 @@ class Report extends CI_Controller
             $mulai = $this->input->get('tanggal_mulai');
             $sampai = $this->input->get('tanggal_sampai');
 
-            $data['rop'] = $this->laporan->tgl_pemesanan($mulai, $sampai);
+            $data['status'] = $this->laporan->tgl_pemesanan($mulai, $sampai);
         } else {
-            $data['rop'] = $this->laporan->pemesanan();
+            $data['status'] = $this->laporan->pemesanan();
         }
         $data['judul'] = "Laporan Barang Keluar";
         $this->load->view('temp/header', $data);
@@ -95,7 +95,7 @@ class Report extends CI_Controller
             $sampai = $this->input->get('tanggal_sampai');
             // mengambil data peminjaman berdasarkan tanggal mulai sampai tanggal sampai
 
-            $data['rop'] = $this->laporan->tgl_pemesanan($mulai, $sampai);
+            $data['status'] = $this->laporan->tgl_pemesanan($mulai, $sampai);
 
             $this->load->view('laporan/cetak/pengajuan_cetak', $data);
         } else {

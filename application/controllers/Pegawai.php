@@ -14,24 +14,6 @@ class Pegawai extends CI_Controller
         $this->load->model('dashboard');
         $this->load->model('laporan');
         $this->load->model('alert');
-
-        $barang = $this->db->query("SELECT * FROM barang WHERE stok <= rop AND barang.sts != 1")->row_array();
-        $kd = $barang['kd_barang'];
-        if ($barang != null) {
-            $tgl = date("Y-m-d");
-            $jumlah = 10;
-            $ket = 'Pemesanan Otomatis Sistem';
-            $data = [
-                'barang' => $kd,
-                'tgl_diajukan' => $tgl,
-                'jumlah' => $jumlah,
-                'ket' => $ket,
-                'status' => 'pending'
-            ];
-            $this->db->insert('pengajuan', $data);
-            $this->db->where(['kd_barang' => $kd]);
-            $this->db->update('barang', ['sts' => 1]);
-        }
     }
 
     public function index()
@@ -297,7 +279,6 @@ class Pegawai extends CI_Controller
             $this->load->view('pegawai/barang_masuk', $data);
             $this->load->view('temp/footer');
         } else {
-
             $kd_barang = $this->input->post('barang', true);
             $kode = $this->input->post('kode', true);
             $waktu = $this->input->post('tgl', true);
@@ -385,10 +366,42 @@ class Pegawai extends CI_Controller
         $data['judul'] = 'Pengajuan';
         $data['barang'] = $this->pegawai->barang();
         $data['aju'] = $this->pegawai->data_aju();
+        $data['status'] = $this->pegawai->data_pengajuan();
         $this->load->view('temp/header', $data);
         $this->load->view('temp/topbar');
         $this->load->view('temp/sidebar');
         $this->load->view('pegawai/pengajuan', $data);
         $this->load->view('temp/footer');
+    }
+    public function rop($kode)
+    {
+        $data['judul'] = 'ROP';
+        $data['pengajuan'] = $this->pegawai->pengajuan($kode);
+        $this->load->view('temp/header', $data);
+        $this->load->view('temp/topbar');
+        $this->load->view('temp/sidebar');
+        $this->load->view('pegawai/rop', $data);
+        $this->load->view('temp/footer');
+    }
+    public function pengajuan_tambah()
+    {
+        $barang = $this->input->post('barang');
+        $tgl_diajuakan = $this->input->post('tgl');
+        $jumlah = $this->input->post('jml');
+        $harga = $this->input->post('harga');
+        $supplier = $this->input->post('supplier');
+
+        $data = [
+            'barang' => $barang,
+            'tgl_diajukan' => $tgl_diajuakan,
+            'jumlah' => $jumlah,
+            'harga' => $harga,
+            'supplier' => $supplier,
+            'ket' => 'Hasil Perhitungan Metode ROP',
+            'status' => 'Pending'
+        ];
+        $this->pegawai->insert($data, 'pengajuan');
+        $this->session->set_flashdata('messege', '<script>alert("Data Berhasil Diajukan!");</script>');
+        redirect('pegawai/pengajuan_barang');
     }
 }

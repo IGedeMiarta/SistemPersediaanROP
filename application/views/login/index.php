@@ -28,7 +28,7 @@
             <div class="card-body login-card-body">
 
                 <div class="login-logo mt-n3 ml-n3">
-                    <img src="<?= base_url('assets/logo/logo2.png') ?>" width="350px" alt="">
+                    <img src="<?= base_url('assets/logo/logo.jpg') ?>" width="350px" alt="">
                 </div>
                 <h1 class="text-center mt-n5 mb-3 text-dark">LOGIN</h1>
                 <form action="<?= base_url('login') ?>" method="post">

@@ -33,7 +33,11 @@ class Pemilik extends CI_Model
 
     function _pegawai()
     {
-        return $this->db->query("SELECT pegawai.id_pegawai,nama,jenkel,tmp_lahir,tgl_lahir,no_hp,alamat, COALESCE(username,'null') AS user FROM `pegawai` LEFT JOIN user ON pegawai.id_pegawai=user.id_pegawai ORDER BY pegawai.id_pegawai ASC")->result();
+        return $this->db->query("SELECT *, COALESCE(username,'null') AS user,pegawai.id_pegawai FROM `pegawai` LEFT JOIN user ON pegawai.id_pegawai=user.id_pegawai ORDER BY pegawai.id_pegawai ASC")->result();
+    }
+    function edt_pegawai($kd)
+    {
+        return $this->db->query("SELECT *, COALESCE(username,'null') AS user,pegawai.id_pegawai FROM `pegawai` LEFT JOIN user ON pegawai.id_pegawai=user.id_pegawai WHERE pegawai.id_pegawai=$kd")->row_array();
     }
     function data_product()
     {

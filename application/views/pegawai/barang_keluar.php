@@ -75,10 +75,10 @@
 
      <!-- Modal Tambah -->
      <div class="modal fade" id="tambah_data" tabindex="-1" role="dialog" aria-labelledby="tambah_dataTitle" aria-hidden="true">
-         <div class="modal-dialog modal-dialog-centered" role="document">
+         <div class="modal-dialog modal-dialog-centered  modal-xl" role="document">
              <div class="modal-content">
                  <div class="modal-header">
-                     <h5 class="modal-title" id="exampleModalLongTitle">Barang Masuk</h5>
+                     <h5 class="modal-title" id="exampleModalLongTitle">Barang Keluar</h5>
                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                          <span aria-hidden="true">&times;</span>
                      </button>
@@ -118,7 +118,7 @@
                              </div>
                          </div>
                          <div class="form-group row">
-                             <label for="example-text-input" class="col-sm-3 col-form-label">Jumlah Masuk </label>
+                             <label for="example-text-input" class="col-sm-3 col-form-label">Jumlah Keluar </label>
                              <div class="col-sm-8">
                                  <div class="input-group mb-3">
                                      <div class="input-group-prepend">
@@ -139,7 +139,7 @@
      </div>
 
      <div class="modal fade" id="edit_data" tabindex="-1" role="dialog" aria-labelledby="edit_dataTitle" aria-hidden="true">
-         <div class="modal-dialog modal-dialog-centered" role="document">
+         <div class="modal-dialog modal-dialog-centered  modal-xl" role="document">
              <div class="modal-content">
                  <div class="modal-header">
                      <h5 class="modal-title" id="exampleModalLongTitle">Edit Data Barang</h5>

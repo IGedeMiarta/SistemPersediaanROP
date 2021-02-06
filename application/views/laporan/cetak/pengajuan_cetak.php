@@ -4,7 +4,7 @@
 <head>
     <table class="table table-borderless table-condensed table-hover" width="100%">
         <tr>
-            <td width="13%" align="center"></td>
+            <td width="13%" align="center"><img src="<?= base_url('assets/logo/logo.jpg') ?>" alt="logo" style="width:130px;height:120px;"></td>
             <td width="74%" align="center">
                 <p class="kecil">
                     <font size="5" face="times new roman"><b>Gamalama Indah Hotel<br><br></b></font>
@@ -116,50 +116,55 @@
 
     <center>
         <br><br>
-        <font size="4" face="times new roman"><b>LAPORAN PENGAJUAN BARANG <br><br></b></font>
+        <font size="4" face="times new roman"><b>LAPORAN PENGAJUAN BARANG<br><br></b></font>
     </center>
 
     <table cellspacing="0">
         <thead>
             <tr>
-                <th scope="col">Tanggal</th>
-                <th scope="col">Nama Barang</th>
+                <th scope="col">No</th>
+                <th scope="col">Tanggal Diajuakn</th>
+                <th scope="col">ID Barang</th>
+                <th scope="col">Nama</th>
+                <th scope="col">Harga Satuan</th>
                 <th scope="col">Jumlah</th>
-                <th scope="col">Keterangan</th>
+                <th scope="col">Supplier</th>
                 <th scope="col">Status</th>
             </tr>
         </thead>
         <tbody>
             <?php
             $no = 1;
-            foreach ($rop as $r) { ?>
+            foreach ($status as $b) { ?>
                 <tr>
-                    <td><?= date("d-m-Y", strtotime($r->tgl_diajukan)) ?></td>
-                    <td><?= $r->nama_barang ?></td>
-                    <td><?= $r->jumlah ?></td>
-                    <td width="50px"><?= $r->ket ?></td>
-                    <td><?= $r->status ?></td>
-
+                    <th width="10px"><?= $no++ ?></th>
+                    <td><?= date("d M Y", strtotime($b->tgl_diajukan)) ?></td>
+                    <td><?= $b->kode ?></td>
+                    <td><?= $b->nama_barang ?></td>
+                    <td><?= $b->harga ?></td>
+                    <td><?= $b->jumlah . ' ' . $b->satuan ?></td>
+                    <td><?= $b->nama_supp ?></td>
+                    <td><?= $b->status ?></td>
                 </tr>
             <?php } ?>
         </tbody>
-    </table>
-    <br>
-    <br><br>
-    <br><br>
-    <p align="right">
-        <font size="4" face="times new roman">
-            Ternate, <?php echo date('d M Y '); ?>
-            <br><br>
-            <br><br>
-            <!-- <?php echo $user['nama'] ?> -->
-        </font>
+        <br>
+        <br><br>
+        <br><br>
+        <p align="right">
+            <font size="4" face="times new roman">
+                Ternate, <?php echo date('d M Y '); ?>
+                <br>
+                <img src="<?= base_url('assets/logo/ttd.png') ?>" alt="ttd" style="width:130px;height:120px;">
+                <br>
+                ( Dhalia Malintang, SH )
+            </font>
 
-    </p>
+        </p>
 
-    <script type="text/javascript">
-        window.print();
-    </script>
+        <script type="text/javascript">
+            window.print();
+        </script>
 
 </body>
 

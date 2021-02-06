@@ -25,29 +25,18 @@
              <div class="card">
                  <div class="card-body">
                      <?php echo $this->session->flashdata('messege'); ?>
-                     <a href="<?= base_url('owner/pegawai_add') ?>" class="btn btn-success mb-3"><i class="dripicons-plus"></i> Tambah</a>
-
-                     <!-- <div class="dropdown">
-                    <button class="btn btn-success dropdown-toggle mb-3" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <i class="dripicons-plus mr-1"></i> Tambah
-                    </button>
-                    <div class="dropdown-menu dropdown-menu-left dropdown-menu-animated">
-                        <a class="dropdown-item" href="<?= base_url('owner/pegawai_add') ?>">Tambah Pegawai</a>
-                        <a class="dropdown-item" href="<?= base_url('owner/regist') ?>">Tambah User</a>
-                    </div>
-                </div> -->
-
+                     <a href="<?= base_url('admin/pegawai_add') ?>" class="btn btn-success mb-3"><i class="dripicons-plus"></i> Tambah</a>
 
                      <table id="example1" class="table table-striped table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                          <thead>
                              <tr>
-                                 <!-- <th scope="col">No</th> -->
                                  <th scope="col">Nama </th>
                                  <th scope="col">Jenis Kelamin</th>
                                  <th scope="col">Tempat, Tgl Lahir</th>
                                  <th scope="col">Nomor Hp</th>
                                  <th scope="col">Alamat</th>
                                  <th scope="col">Akun</th>
+                                 <th scope="col">Role</th>
                                  <th scope="col">Option</th>
                              </tr>
                          </thead>
@@ -72,14 +61,21 @@
 
                                      <td class="text-center" width="10px">
                                          <?php if ($p->user == 'null') { ?>
-                                             <a href="<?= base_url('owner/regist/' . $p->id_pegawai) ?>" class="badge badge-success"><i class="dripicons-document-edit"></i> Buat</a>
+                                             <a href="<?= base_url('admin/regist/' . $p->id_pegawai) ?>" class="badge badge-success"><i class="dripicons-document-edit"></i> Buat</a>
                                          <?php } else {
                                                 echo "-";
                                             } ?>
                                      </td>
+                                     <td class="text-center" width="10px">
+                                         <?php if ($p->user == 'null') { ?>
+                                             -
+                                         <?php } else {
+                                                echo $p->role;
+                                            } ?>
+                                     </td>
                                      <td width="10px">
-                                         <a href="<?= base_url('owner/pegawai_edt/' . $p->id_pegawai) ?>" class="badge badge-warning pull-right"><i class="dripicons-document-edit"></i> Edit</a>
-                                         <a href="<?= base_url('owner/pegawai_del/' . $p->id_pegawai) ?>" onclick="return confirm('Yakin Ingin Hapus?')" class="badge badge-danger pull-right"><i class="dripicons-trash"></i> Hapus</a>
+                                         <a href="<?= base_url('admin/pegawai_edt/' . $p->id_pegawai) ?>" class="badge badge-warning pull-right"><i class="dripicons-document-edit"></i> Edit</a>
+                                         <a href="<?= base_url('admin/pegawai_del/' . $p->id_pegawai) ?>" onclick="return confirm('Yakin Ingin Hapus?')" class="badge badge-danger pull-right"><i class="dripicons-trash"></i> Hapus</a>
                                      </td>
                                  </tr>
                              <?php } ?>

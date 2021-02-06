@@ -22,71 +22,89 @@
              <!-- Default box -->
              <?php echo $this->session->flashdata('messege'); ?>
 
+             <div class="accordion" id="accordionExample">
+                 <div class="card">
+                     <div class="card-header" id="headingOne">
+                         <h2 class="mb-0">
+                             <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                 <h5 class="text-dark text-center">Pengajuan Barang</h5>
+                             </button>
+                         </h2>
+                     </div>
+
+                     <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+                         <div class="card-body">
+                             <table id="example1" class="table table-striped table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                                 <thead>
+                                     <tr>
+                                         <th scope="col">No</th>
+                                         <th scope="col">ID Barang</th>
+                                         <th scope="col">Nama</th>
+                                         <th scope="col">Harga Barang (st)</th>
+                                         <th scope="col">Supplier</th>
+                                         <th scope="col">Stok</th>
+                                         <th scope="col" width="10px">Opsi</th>
+                                     </tr>
+                                 </thead>
+                                 <tbody>
+                                     <?php
+                                        $no = 1;
+                                        foreach ($aju as $b) { ?>
+                                         <tr>
+                                             <th width="10px"><?= $no++ ?></th>
+                                             <td><?= $b->kode ?></td>
+                                             <td><?= $b->nama_barang ?></td>
+                                             <td><?= $b->harga ?></td>
+                                             <td><?= $b->supplier ?></td>
+                                             <td><?= $b->stok . ' ' . $b->satuan ?></td>
+                                             <td class="text-center"><a href="<?= base_url('pegawai/rop/') . $b->kd_masuk ?>" class="badge badge-info"> <i class="fas fa-external-link-square-alt"></i></a></td>
+
+                                         </tr>
+                                     <?php } ?>
+                                 </tbody>
+                             </table>
+                         </div>
+                     </div>
+                 </div>
+             </div>
 
              <div class="card">
-
-                 <div class="card-header badge badge-dark">
-                     <h5 class="text-dark">Data Barang</h5>
+                 <div class="card-header">
+                     <h5 class="text-center">Status Pengajuan</h5>
                  </div>
-
                  <div class="card-body">
-
                      <table id="example1" class="table table-striped table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                          <thead>
                              <tr>
                                  <th scope="col">No</th>
+                                 <th scope="col">Tanggal Diajuakn</th>
                                  <th scope="col">ID Barang</th>
                                  <th scope="col">Nama</th>
-                                 <th scope="col">Harga Barang (st)</th>
+                                 <th scope="col">Harga Satuan</th>
+                                 <th scope="col">Jumlah</th>
                                  <th scope="col">Supplier</th>
-                                 <th scope="col">Stok</th>
-                                 <th scope="col">Opsi</th>
+                                 <th scope="col">Status</th>
                              </tr>
                          </thead>
                          <tbody>
                              <?php
                                 $no = 1;
-                                foreach ($aju as $b) { ?>
+                                foreach ($status as $b) { ?>
                                  <tr>
-                                     <th width="10px" scope="row"><?= $no++ ?></th>
+                                     <th width="10px"><?= $no++ ?></th>
+                                     <td><?= date("d M Y", strtotime($b->tgl_diajukan)) ?></td>
                                      <td><?= $b->kode ?></td>
                                      <td><?= $b->nama_barang ?></td>
-                                     <td><?= $b->jenis ?></td>
-                                     <td><?= $b->stok . ' ' . $b->satuan ?></td>
-                                     <td class="text-center"><a href="" class="btn btn-info" data-toggle="modal" data-target="#staticBackdrop"> <i class="fas fa-plus"></i></a></td>
-                                     <td class="text-center">
-                                         <!-- <a href="" data-barang="<?= $b->kd_barang ?>" class="badge badge-warning edit-barang" data-toggle="modal" data-target="#edit_data"><i class="fas fa-edit"></i> Edit</a> -->
-                                         <a href="<?= base_url('pegawai/barang_del/' . $b->kd_barang) ?>" class="badge badge-danger" onclick="return confirm('Yakin Hapus?')"><i class="fas fa-trash"></i> Hapus</a>
-                                     </td>
+                                     <td><?= $b->harga ?></td>
+                                     <td><?= $b->jumlah . ' ' . $b->satuan ?></td>
+                                     <td><?= $b->nama_supp ?></td>
+                                     <td><?= $b->status ?></td>
                                  </tr>
                              <?php } ?>
                          </tbody>
                      </table>
                  </div>
              </div>
-
-             <!-- /.card -->
-
          </section>
          <!-- /.content -->
-     </div>
-
-     <div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-         <div class="modal-dialog modal-dialog-centered modal-lg">
-             <div class="modal-content">
-                 <div class="modal-header">
-                     <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
-                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                         <span aria-hidden="true">&times;</span>
-                     </button>
-                 </div>
-                 <div class="modal-body">
-                     ...
-                 </div>
-                 <div class="modal-footer">
-                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                     <button type="button" class="btn btn-primary">Understood</button>
-                 </div>
-             </div>
-         </div>
      </div>

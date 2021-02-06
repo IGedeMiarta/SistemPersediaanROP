@@ -44,8 +44,8 @@ class Login extends CI_Controller
                         'side' => 'admin'
                     ];
                     $this->session->set_userdata($data);
-                    redirect('owner');
-                } else if ($user['role'] == 'pegawai') {
+                    redirect('admin');
+                } else if ($user['role'] == 'Pegawai') {
                     $data = [
                         'username' => $user['username'],
                         'role' => $user['role'],
@@ -55,6 +55,16 @@ class Login extends CI_Controller
                     ];
                     $this->session->set_userdata($data);
                     redirect('pegawai');
+                } else if ($user['role'] == 'Manager') {
+                    $data = [
+                        'username' => $user['username'],
+                        'role' => $user['role'],
+                        'pegawai' => $user['id_pegawai'],
+                        'status' => 'login_manager',
+                        'side' => 'manager'
+                    ];
+                    $this->session->set_userdata($data);
+                    redirect('manager');
                 }
             } else {
                 $this->session->set_flashdata('messege', '<div class="alert alert-danger mt-n5" role="alert">Password Salah</div>');

@@ -14,7 +14,7 @@
                 <?php if ($this->session->userdata('side') == 'admin') { ?>
                     <li class="nav-header">HOME</li>
                     <li class="nav-item">
-                        <a href="<?= base_url('owner') ?>" class="nav-link">
+                        <a href="<?= base_url('admin') ?>" class="nav-link">
                             <i class="nav-icon fas fa-home mr-4"></i>
                             <p>
                                 Dashboard
@@ -22,7 +22,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="<?= base_url('owner/pegawai') ?>" class="nav-link">
+                        <a href="<?= base_url('admin/pegawai') ?>" class="nav-link">
                             <i class="nav-icon fas fa-users mr-4"></i>
                             <p>
                                 Pegawai
@@ -30,22 +30,80 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="<?= base_url('owner/stok') ?>" class="nav-link">
-                            <i class="nav-icon fas fa-archive mr-4"></i>
+                        <a href="<?= base_url('pegawai/supplier') ?>" class="nav-link">
+                            <i class="nav-icon fas fa-store mr-4"></i>
                             <p>
-                                Stok Barang
+                                Supplier
                             </p>
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a href="<?= base_url('owner/pemesanan') ?>" class="nav-link">
+                    <li class="nav-item has-treeview">
+                        <a href="#" class="nav-link">
                             <i class="nav-icon fas fa-archive mr-4"></i>
                             <p>
-                                Pengejuan Barang
+                                Barang
+                                <i class="fas fa-angle-left right"></i>
                             </p>
                         </a>
-                    </li>
 
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="<?= base_url('pegawai/satuan_barang') ?>" class="nav-link">
+                                    <i class="far fa-circle nav-icon mr-4"></i>
+                                    <p>Satuan Barang</p>
+                                </a>
+                            </li>
+                        </ul>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="<?= base_url('pegawai/jenis_barang') ?>" class="nav-link">
+                                    <i class="far fa-circle nav-icon mr-4"></i>
+                                    <p>Jenis Barang</p>
+                                </a>
+                            </li>
+                        </ul>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="<?= base_url('pegawai/barang') ?>" class="nav-link">
+                                    <i class="far fa-circle nav-icon mr-4"></i>
+                                    <p>Data Barang</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="nav-item has-treeview">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon fas fa-edit mr-4"></i>
+                            <p>
+                                Transaksi
+                                <i class="fas fa-angle-left right"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="<?= base_url('pegawai/barang_masuk') ?>" class="nav-link">
+                                    <i class="far fa-circle nav-icon mr-4"></i>
+                                    <p> Barang Masuk</p>
+                                </a>
+                            </li>
+                        </ul>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="<?= base_url('pegawai/barang_keluar') ?>" class="nav-link">
+                                    <i class="far fa-circle nav-icon mr-4"></i>
+                                    <p> Barang Keluar</p>
+                                </a>
+                            </li>
+                        </ul>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="<?= base_url('pegawai/pengajuan_barang') ?>" class="nav-link">
+                                    <i class="far fa-circle nav-icon mr-4"></i>
+                                    <p>Pengajuan Barang</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
                 <?php } else if ($this->session->userdata('side') == 'pegawai') { ?>
                     <li class="nav-header">HOME</li>
                     <li class="nav-item">
@@ -97,14 +155,6 @@
                                 </a>
                             </li>
                         </ul>
-                        <!-- <ul class="nav nav-treeview">
-                            <li class="nav-item">
-                                <a href="<?= base_url('pegawai/reorder') ?>" class="nav-link">
-                                    <i class="far fa-circle nav-icon mr-4"></i>
-                                    <p>Reorder Point</p>
-                                </a>
-                            </li>
-                        </ul> -->
                     </li>
                     <li class="nav-item has-treeview">
                         <a href="#" class="nav-link">
@@ -116,17 +166,9 @@
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="<?= base_url('pegawai/pengajuan_barang') ?>" class="nav-link">
-                                    <i class="far fa-circle nav-icon mr-4"></i>
-                                    <p>Pengajuan Barang</p>
-                                </a>
-                            </li>
-                        </ul>
-                        <ul class="nav nav-treeview">
-                            <li class="nav-item">
                                 <a href="<?= base_url('pegawai/barang_masuk') ?>" class="nav-link">
                                     <i class="far fa-circle nav-icon mr-4"></i>
-                                    <p>Penerimaan Barang</p>
+                                    <p> Barang Masuk</p>
                                 </a>
                             </li>
                         </ul>
@@ -134,14 +176,38 @@
                             <li class="nav-item">
                                 <a href="<?= base_url('pegawai/barang_keluar') ?>" class="nav-link">
                                     <i class="far fa-circle nav-icon mr-4"></i>
-                                    <p>Pengeluaran Barang</p>
+                                    <p> Barang Keluar</p>
                                 </a>
                             </li>
                         </ul>
-
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="<?= base_url('pegawai/pengajuan_barang') ?>" class="nav-link">
+                                    <i class="far fa-circle nav-icon mr-4"></i>
+                                    <p>Pengajuan Barang</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                <?php } else if ($this->session->userdata('side') == 'manager') { ?>
+                    <li class="nav-header">HOME</li>
+                    <li class="nav-item">
+                        <a href="<?= base_url('manager') ?>" class="nav-link">
+                            <i class="nav-icon fas fa-home mr-4"></i>
+                            <p>
+                                Dashboard
+                            </p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="<?= base_url('manager/pengajuan') ?>" class="nav-link">
+                            <i class="nav-icon fas fa-paste mr-4"></i>
+                            <p>
+                                Pengajuan
+                            </p>
+                        </a>
                     </li>
                 <?php } ?>
-
                 <li class="nav-header ">LAPORAN</li>
                 <li class="nav-item has-treeview">
                     <a href="#" class="nav-link">

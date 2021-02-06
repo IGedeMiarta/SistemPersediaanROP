@@ -22,9 +22,11 @@
         <a class="nav-link" data-toggle="dropdown" href="#">
             <i class="far fa-user ">
                 <?php if ($this->session->userdata('side') == 'admin') {
-                    echo ' Manager';
-                } else {
+                    echo ' Admin';
+                } elseif ($this->session->userdata('side') == 'pegawai') {
                     echo ' Pegawai';
+                } else {
+                    echo 'Manager';
                 } ?>
                 <i class="fas fa-angle-down ml-2"></i>
             </i>

@@ -4,7 +4,7 @@
 <head>
     <table class="table table-borderless table-condensed table-hover" width="100%">
         <tr>
-            <td width="13%" align="center"></td>
+            <td width="13%" align="center"><img src="<?= base_url('assets/logo/logo.jpg') ?>" alt="logo" style="width:130px;height:120px;"></td>
             <td width="74%" align="center">
                 <p class="kecil">
                     <font size="5" face="times new roman"><b>Gamalama Indah Hotel<br><br></b></font>
@@ -123,23 +123,26 @@
         <thead>
             <tr>
                 <th scope="col">No</th>
-                <th scope="col">Tanggal Keluar</th>
-                <th scope="col">Nama Barang </th>
-                <th class="text-center" scope="col">
-                    Jumlah Keluar
-                </th>
+                <th scope="col">No. Transaksi</th>
+                <th scope="col">Tanggal</th>
+                <th scope="col">Nama Barang</th>
+                <th scope="col">Jumlah</th>
+                <th scope="col">Pegawai</th>
+
             </tr>
         </thead>
-
         <tbody>
             <?php
             $no = 1;
-            foreach ($masuk as $mtrl) { ?>
+            foreach ($keluar as $b) { ?>
                 <tr>
                     <th width="10px" scope="row"><?= $no++ ?></th>
-                    <td><?= date("d-m-Y", strtotime($mtrl->waktu)) ?></td>
-                    <td><?= $mtrl->nama_barang ?></td>
-                    <td class="text-center"><?= $mtrl->jumlah . ' ' . $mtrl->detail ?></td>
+                    <td><?= $b->kode ?></td>
+                    <td><?= date("d M Y", strtotime($b->waktu)) ?></td>
+                    <td><?= $b->nama_barang ?></td>
+                    <td><?= $b->jumlah . ' ' . $b->satuan ?></td>
+                    <td><?= $b->pegawai ?></td>
+
                 </tr>
             <?php } ?>
         </tbody>
@@ -150,9 +153,10 @@
     <p align="right">
         <font size="4" face="times new roman">
             Ternate, <?php echo date('d M Y '); ?>
-            <br><br>
-            <br><br>
-            <!-- <?php echo $user['nama'] ?> -->
+            <br>
+            <img src="<?= base_url('assets/logo/ttd.png') ?>" alt="ttd" style="width:130px;height:120px;">
+            <br>
+            ( Dhalia Malintang, SH )
         </font>
 
     </p>
