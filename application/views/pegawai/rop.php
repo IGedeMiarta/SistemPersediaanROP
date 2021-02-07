@@ -14,27 +14,34 @@
                          </ol>
                      </div>
                  </div>
-             </div><!-- /.container-fluid -->
+             </div>
          </section>
 
-         <!-- data query -->
+
+         <!-- ==============PERHITUNGAN ROP ================== -->
          <?php
             $kd_barang = $pengajuan['kd_barang'];
             $keluar =  $this->db->query("SELECT *,MAX(jumlah)as max, AVG(jumlah) as avg FROM `barang_keluar` WHERE kd_barang=$kd_barang")->row_array();
             // LT = waktu yang dibutuhkan pemesanan 
+            $w = 8; //jam kerja
             $lt = 15;
+
             // SS = (max * lt)-(avg*avg(lt))
-            $ss = ($keluar['max'] * 15) - ($keluar['avg'] * 15);
+            $ss = ($keluar['max'] * $lt) - ($keluar['avg'] * $lt);
 
             // D = stok/waktu_kerja;
-            $d = $pengajuan['stok'] / 8;
+            $d = $pengajuan['stok'] / $w;
 
             // ROP = (LT*D)+SS
             $rop = ($lt * $d) + $ss;
             ?>
+
+         <!-- ================ END PERHITUNGAN ================= -->
+
+
+
+
          <!-- Main content -->
-
-
          <section class="content">
 
              <!-- Default box -->
@@ -92,7 +99,7 @@
                                              </div>
                                          </td>
                                          <td>Safety Stok (SS)</td>
-                                         <td><?= $ss ?></td>
+                                         <td><?= round($ss)  ?> </td>
                                      </tr>
                                      <tr>
                                          <td>
@@ -142,7 +149,7 @@
                                          <div class="inner">
                                              <h4 class="text-bold">Safety Stok</h4>
 
-                                             <h5 class="text-bold text-info"><?= $ss ?> Pcs</h5>
+                                             <h5 class="text-bold text-info"><?= round($ss) ?> Pcs</h5>
                                          </div>
                                          <div class="icon mb-3">
                                              <i class="fas fa-shield-alt"></i>

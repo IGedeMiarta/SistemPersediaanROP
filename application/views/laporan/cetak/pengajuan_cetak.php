@@ -5,6 +5,7 @@
     <table class="table table-borderless table-condensed table-hover" width="100%">
         <tr>
             <td width="13%" align="center"><img src="<?= base_url('assets/logo/logo.jpg') ?>" alt="logo" style="width:130px;height:120px;"></td>
+
             <td width="74%" align="center">
                 <p class="kecil">
                     <font size="5" face="times new roman"><b>Gamalama Indah Hotel<br><br></b></font>
@@ -148,23 +149,24 @@
                 </tr>
             <?php } ?>
         </tbody>
-        <br>
-        <br><br>
-        <br><br>
-        <p align="right">
-            <font size="4" face="times new roman">
-                Ternate, <?php echo date('d M Y '); ?>
-                <br>
-                <img src="<?= base_url('assets/logo/ttd.png') ?>" alt="ttd" style="width:130px;height:120px;">
-                <br>
-                ( Dhalia Malintang, SH )
-            </font>
+    </table>
+    <br>
+    <br><br>
+    <br><br>
+    <p align="right">
+        <font size="4" face="times new roman">
+            Ternate, <?php echo date('d M Y '); ?>
+            <br>
+            <img src="<?= base_url('assets/logo/ttd.png') ?>" alt="ttd" style="width:130px;height:120px;">
+            <br>
+            ( Dhalia Malintang, SH )
+        </font>
 
-        </p>
+    </p>
 
-        <script type="text/javascript">
-            window.print();
-        </script>
+    <script type="text/javascript">
+        window.print();
+    </script>
 
 </body>
 
