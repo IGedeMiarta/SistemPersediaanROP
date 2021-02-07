@@ -286,8 +286,13 @@ class Pegawai extends CI_Controller
             $harga = $this->input->post('harga', true);
             $supplier = $this->input->post('supplier', true);
             $id = $this->session->userdata('pegawai');
+            $nama = $this->pegawai->edit(['id_pegawai' => $id], 'pegawai');
+            if ($this->session->userdata('side') == 'admin') {
+                $pegawai = 'Admin';
+            } else if ($this->session->userdata('side') == 'pegawai') {
+                $pegawai = $nama['nama'];
+            }
 
-            $pegawai = $this->pegawai->edit(['id_pegawai' => $id], 'pegawai');
             $data = [
 
                 'kd_barang' => $kd_barang,
@@ -296,7 +301,7 @@ class Pegawai extends CI_Controller
                 'jumlah' => $jml,
                 'harga' => $harga,
                 'supplier' => $supplier,
-                'pegawai' => $pegawai['nama']
+                'pegawai' => $pegawai
             ];
             $this->pegawai->insert($data, 'barang_masuk');
             $this->session->set_flashdata('messege', '<script>alert("Data Berhasil Ditambahkan!");</script>');
@@ -331,14 +336,19 @@ class Pegawai extends CI_Controller
             $waktu = $this->input->post('tgl', true);
             $jml = $this->input->post('jml', true);
             $id = $this->session->userdata('pegawai');
-            $pegawai = $this->pegawai->edit(['id_pegawai' => $id], 'pegawai');
+            $nama = $this->pegawai->edit(['id_pegawai' => $id], 'pegawai');
+            if ($this->session->userdata('side') == 'admin') {
+                $pegawai = 'Admin';
+            } else if ($this->session->userdata('side') == 'pegawai') {
+                $pegawai = $nama['nama'];
+            }
             $data = [
 
                 'kd_barang' => $kd_barang,
                 'kode' => $kode,
                 'waktu' => $waktu,
                 'jumlah' => $jml,
-                'pegawai' => $pegawai['nama']
+                'pegawai' => $pegawai
             ];
             $cek = $this->pegawai->edit(['kd_barang' => $kd_barang], 'barang');
             $stok = $cek['stok'];

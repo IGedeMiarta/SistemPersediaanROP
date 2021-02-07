@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 28, 2021 at 09:17 AM
+-- Generation Time: Feb 06, 2021 at 09:22 PM
 -- Server version: 10.3.16-MariaDB
 -- PHP Version: 7.3.7
 
@@ -30,12 +30,11 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `barang` (
   `kd_barang` int(11) NOT NULL,
+  `kode` varchar(11) NOT NULL,
   `nama_barang` varchar(255) NOT NULL,
-  `detail` enum('Dus','Buah','Pcs') NOT NULL,
-  `brand` varchar(255) NOT NULL,
-  `jenis` enum('Minuman','Bahan Pembersih','Alat Pembersih','Kebutuhan Mandi','Kebutuhan Dapur','Pengharum Ruangan','Pembersih Kaca','Alat Makan') NOT NULL,
+  `satuan` int(11) NOT NULL,
+  `jenis` int(11) NOT NULL,
   `stok` int(11) NOT NULL,
-  `rop` int(11) NOT NULL,
   `sts` int(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -43,12 +42,9 @@ CREATE TABLE `barang` (
 -- Dumping data for table `barang`
 --
 
-INSERT INTO `barang` (`kd_barang`, `nama_barang`, `detail`, `brand`, `jenis`, `stok`, `rop`, `sts`) VALUES
-(2, 'Pembersih Piring Sunlight', 'Buah', 'Sunlight', 'Bahan Pembersih', 20, 6, 0),
-(3, 'Pengharum Lantai', 'Buah', 'Wipol', 'Bahan Pembersih', 40, 5, 0),
-(4, 'Tissue', 'Buah', 'Passeo', 'Alat Pembersih', 5, 7, 1),
-(5, 'Aqua', 'Dus', 'Agua', 'Minuman', 120, 0, 0),
-(7, 'Amenetis', 'Pcs', '-', 'Kebutuhan Mandi', 150, 0, 0);
+INSERT INTO `barang` (`kd_barang`, `kode`, `nama_barang`, `satuan`, `jenis`, `stok`, `sts`) VALUES
+(12, 'B000001', 'Aqua Kardus', 4, 2, 2, 1),
+(14, 'B000002', 'Indomie ', 3, 5, 12, 1);
 
 -- --------------------------------------------------------
 
@@ -59,39 +55,35 @@ INSERT INTO `barang` (`kd_barang`, `nama_barang`, `detail`, `brand`, `jenis`, `s
 CREATE TABLE `barang_keluar` (
   `kd_keluar` int(11) NOT NULL,
   `kd_barang` int(11) NOT NULL,
+  `kode` varchar(111) NOT NULL,
   `waktu` datetime NOT NULL,
-  `jumlah` int(11) NOT NULL
+  `jumlah` int(11) NOT NULL,
+  `pegawai` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `barang_keluar`
 --
 
-INSERT INTO `barang_keluar` (`kd_keluar`, `kd_barang`, `waktu`, `jumlah`) VALUES
-(9, 4, '2021-01-26 20:48:20', 20),
-(10, 3, '2021-01-26 20:55:01', 15);
+INSERT INTO `barang_keluar` (`kd_keluar`, `kd_barang`, `kode`, `waktu`, `jumlah`, `pegawai`) VALUES
+(22, 12, 'T-BK-2102060001', '2021-02-03 00:00:00', 5, 'Risal Basri'),
+(23, 12, 'T-BK-2102060002', '2021-02-06 00:00:00', 3, 'Risal Basri'),
+(24, 14, 'T-BK-2102060003', '2021-02-01 00:00:00', 5, 'Risal Basri'),
+(25, 14, 'T-BK-2102060004', '2021-02-06 00:00:00', 3, 'Risal Basri');
 
 --
 -- Triggers `barang_keluar`
 --
 DELIMITER $$
-CREATE TRIGGER `on_delete` AFTER DELETE ON `barang_keluar` FOR EACH ROW BEGIN 
+CREATE TRIGGER `on_delete_keluar` AFTER DELETE ON `barang_keluar` FOR EACH ROW BEGIN 
 	UPDATE barang SET stok = stok + OLD.jumlah
 	WHERE OLD.kd_barang=barang.kd_barang;
 END
 $$
 DELIMITER ;
 DELIMITER $$
-CREATE TRIGGER `on_insert` AFTER INSERT ON `barang_keluar` FOR EACH ROW BEGIN 
+CREATE TRIGGER `on_insert_keluar` AFTER INSERT ON `barang_keluar` FOR EACH ROW BEGIN 
 	UPDATE barang SET stok = stok - NEW.jumlah
-	WHERE NEW.kd_barang=barang.kd_barang
-    AND barang.stok > NEW.jumlah ;
-END
-$$
-DELIMITER ;
-DELIMITER $$
-CREATE TRIGGER `on_update` AFTER UPDATE ON `barang_keluar` FOR EACH ROW BEGIN 
-	UPDATE barang SET stok = (stok + OLD.jumlah)-NEW.jumlah
 	WHERE NEW.kd_barang=barang.kd_barang;
 END
 $$
@@ -106,41 +98,60 @@ DELIMITER ;
 CREATE TABLE `barang_masuk` (
   `kd_masuk` int(11) NOT NULL,
   `kd_barang` int(11) NOT NULL,
+  `kode` varchar(111) NOT NULL,
   `waktu` datetime NOT NULL,
   `jumlah` int(11) NOT NULL,
-  `detail` varchar(255) NOT NULL,
-  `supplier` int(11) NOT NULL
+  `harga` int(11) NOT NULL,
+  `supplier` int(11) NOT NULL,
+  `pegawai` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `barang_masuk`
 --
 
-INSERT INTO `barang_masuk` (`kd_masuk`, `kd_barang`, `waktu`, `jumlah`, `detail`, `supplier`) VALUES
-(3, 2, '2021-01-24 15:29:23', 20, 'Buah', 3),
-(4, 3, '2021-01-24 15:36:12', 20, 'Buah', 3),
-(5, 4, '2021-01-24 15:38:13', 25, 'Buah', 3),
-(6, 5, '2021-01-24 15:39:20', 120, 'Dus', 3),
-(7, 7, '2021-01-26 16:50:18', 150, 'Pcs', 0),
-(8, 3, '2021-01-27 17:21:09', 10, 'Buah', 1);
+INSERT INTO `barang_masuk` (`kd_masuk`, `kd_barang`, `kode`, `waktu`, `jumlah`, `harga`, `supplier`, `pegawai`) VALUES
+(41, 12, 'T-BM-2102060001', '2021-02-01 00:00:00', 10, 35000, 1, 'Risal Basri'),
+(42, 14, 'T-BM-2102060002', '2021-02-01 00:00:00', 20, 3500, 1, 'Risal Basri');
 
 --
 -- Triggers `barang_masuk`
 --
 DELIMITER $$
-CREATE TRIGGER `masuk` AFTER INSERT ON `barang_masuk` FOR EACH ROW BEGIN 
-	UPDATE barang SET stok = stok + NEW.jumlah, detail = NEW.detail
-	WHERE NEW.kd_barang=barang.kd_barang;
+CREATE TRIGGER `on_delete_masuk` AFTER DELETE ON `barang_masuk` FOR EACH ROW BEGIN 
+	UPDATE barang SET stok = stok - OLD.jumlah
+	WHERE OLD.kd_barang=barang.kd_barang;
 END
 $$
 DELIMITER ;
 DELIMITER $$
-CREATE TRIGGER `update` AFTER UPDATE ON `barang_masuk` FOR EACH ROW BEGIN 
-	UPDATE barang SET stok = (stok - OLD.jumlah)+NEW.jumlah
+CREATE TRIGGER `on_insert_masuk` AFTER INSERT ON `barang_masuk` FOR EACH ROW BEGIN 
+	UPDATE barang SET stok = stok + NEW.jumlah
 	WHERE NEW.kd_barang=barang.kd_barang;
 END
 $$
 DELIMITER ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `jenis_barang`
+--
+
+CREATE TABLE `jenis_barang` (
+  `id` int(11) NOT NULL,
+  `jenis` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `jenis_barang`
+--
+
+INSERT INTO `jenis_barang` (`id`, `jenis`) VALUES
+(1, 'Snack'),
+(2, 'Minuman'),
+(3, 'Alat Masak'),
+(5, 'Bahan Makan');
 
 -- --------------------------------------------------------
 
@@ -164,7 +175,9 @@ CREATE TABLE `pegawai` (
 
 INSERT INTO `pegawai` (`id_pegawai`, `nama`, `jenkel`, `tmp_lahir`, `tgl_lahir`, `no_hp`, `alamat`) VALUES
 (2, 'Risal Basri', 'L', 'ende', '1999-01-22', '08152155999', 'Jl. Pejuang Kemerdekaan no 30, Ende'),
-(3, 'Masya Ashari', 'P', 'Ende', '1998-02-22', '08152159911', 'Ende');
+(3, 'Masya Ashari', 'P', 'Ende', '1998-02-22', '08152159911', 'Ende'),
+(4, 'Febby Putri', 'P', 'Ende', '2021-01-20', '08152155999', 'Yogyakarta'),
+(9, 'Diana Prastika', 'P', 'Ende', '2021-02-01', '081521555980', 'ende\r\n');
 
 -- --------------------------------------------------------
 
@@ -177,17 +190,19 @@ CREATE TABLE `pengajuan` (
   `barang` int(11) NOT NULL,
   `tgl_diajukan` date NOT NULL,
   `jumlah` int(11) NOT NULL,
+  `harga` int(11) NOT NULL,
+  `supplier` int(11) NOT NULL,
   `ket` varchar(255) NOT NULL,
-  `status` enum('pending','waiting','approve','cancel','done') NOT NULL
+  `status` varchar(16) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `pengajuan`
 --
 
-INSERT INTO `pengajuan` (`kd_pengajuan`, `barang`, `tgl_diajukan`, `jumlah`, `ket`, `status`) VALUES
-(17, 3, '2021-01-27', 50, 'Dibutuhkan Untuk keperluan kebersihan kamar', 'approve'),
-(18, 4, '2021-01-27', 10, 'Pemesanan Otomatis Sistem', 'pending');
+INSERT INTO `pengajuan` (`kd_pengajuan`, `barang`, `tgl_diajukan`, `jumlah`, `harga`, `supplier`, `ket`, `status`) VALUES
+(27, 14, '2021-02-08', 38, 3500, 1, 'Hasil Perhitungan Metode ROP', 'Diterima'),
+(29, 12, '2021-02-07', 19, 35000, 1, 'Hasil Perhitungan Metode ROP', 'Pending');
 
 -- --------------------------------------------------------
 
@@ -206,25 +221,24 @@ CREATE TABLE `retur` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `rop`
+-- Table structure for table `satuan_barang`
 --
 
-CREATE TABLE `rop` (
+CREATE TABLE `satuan_barang` (
   `id` int(11) NOT NULL,
-  `kd_barang` int(11) NOT NULL,
-  `lt` int(11) NOT NULL,
-  `ss` int(11) NOT NULL,
-  `rop` int(11) NOT NULL
+  `satuan` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `rop`
+-- Dumping data for table `satuan_barang`
 --
 
-INSERT INTO `rop` (`id`, `kd_barang`, `lt`, `ss`, `rop`) VALUES
-(1, 2, 2, 20, 6),
-(2, 3, 1, 20, 5),
-(3, 4, 2, 20, 7);
+INSERT INTO `satuan_barang` (`id`, `satuan`) VALUES
+(1, 'Unit'),
+(3, 'Pcs'),
+(4, 'Kardus'),
+(5, 'Liter'),
+(6, 'Kilo');
 
 -- --------------------------------------------------------
 
@@ -246,7 +260,7 @@ CREATE TABLE `supplier` (
 
 INSERT INTO `supplier` (`kd_supp`, `nama_supp`, `owner`, `no_hp`, `alamat`) VALUES
 (1, 'Sembada Supermarket', 'Bpk. Surya Winata', '08152155999', 'Mlati, Sleman'),
-(3, 'CV. Rukun Semesta', 'Mhd. Puyono', '08152159911', 'yogya');
+(8, 'CV. Rukun Punia', 'Ibu Mita', '08152155999', 'Mlati, Sleman, Yogyakarta');
 
 -- --------------------------------------------------------
 
@@ -259,7 +273,7 @@ CREATE TABLE `user` (
   `username` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
   `id_pegawai` int(11) NOT NULL,
-  `role` enum('admin','pegawai') NOT NULL
+  `role` varchar(16) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -268,7 +282,10 @@ CREATE TABLE `user` (
 
 INSERT INTO `user` (`id_user`, `username`, `password`, `id_pegawai`, `role`) VALUES
 (1, 'admin', '$2y$10$FmO8fDbUZcPH7X9NP1NGoetVZ5YCo86uzQ2iBcOmH9UFBaNc1L86a', 0, 'admin'),
-(3, 'user', '$2y$10$RL42e1tfEgPZqYC.K0Gg6eeVJvU5knsoiZoUHaNd/Ks0/cNaZKPVi', 2, 'pegawai');
+(3, 'user', '$2y$10$hWjKUbSRrHesTeyrMkt1qeruyS3m5E0OjLZtJNKEj5Njq8sduIoea', 2, 'Pegawai'),
+(4, 'febby', '$2y$10$6AIKcrPScyEHDr8J/vsDv.KV298nhlYpF7Ffi/de9GlqMNyPPFG7y', 4, 'Pegawai'),
+(7, 'diana111', '$2y$10$OUxUuDO1g6mkdNCfDfH5Fes5x/rF/5Tk1Idwm8XYX9OEinOSrrbLO', 9, 'pegawai'),
+(8, 'manager', '$2y$10$hcWvlbjxrx.WVY3AtobXM.cG90TUfRxodgbZ4HpGaB.TKnIOodW/m', 3, 'Manager');
 
 --
 -- Indexes for dumped tables
@@ -293,6 +310,12 @@ ALTER TABLE `barang_masuk`
   ADD PRIMARY KEY (`kd_masuk`);
 
 --
+-- Indexes for table `jenis_barang`
+--
+ALTER TABLE `jenis_barang`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `pegawai`
 --
 ALTER TABLE `pegawai`
@@ -312,11 +335,10 @@ ALTER TABLE `retur`
   ADD PRIMARY KEY (`kd_retur`);
 
 --
--- Indexes for table `rop`
+-- Indexes for table `satuan_barang`
 --
-ALTER TABLE `rop`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `kd_barang` (`kd_barang`);
+ALTER TABLE `satuan_barang`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `supplier`
@@ -338,31 +360,37 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `barang`
 --
 ALTER TABLE `barang`
-  MODIFY `kd_barang` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `kd_barang` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `barang_keluar`
 --
 ALTER TABLE `barang_keluar`
-  MODIFY `kd_keluar` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `kd_keluar` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT for table `barang_masuk`
 --
 ALTER TABLE `barang_masuk`
-  MODIFY `kd_masuk` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `kd_masuk` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
+
+--
+-- AUTO_INCREMENT for table `jenis_barang`
+--
+ALTER TABLE `jenis_barang`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `pegawai`
 --
 ALTER TABLE `pegawai`
-  MODIFY `id_pegawai` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_pegawai` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `pengajuan`
 --
 ALTER TABLE `pengajuan`
-  MODIFY `kd_pengajuan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `kd_pengajuan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
 -- AUTO_INCREMENT for table `retur`
@@ -371,22 +399,22 @@ ALTER TABLE `retur`
   MODIFY `kd_retur` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `rop`
+-- AUTO_INCREMENT for table `satuan_barang`
 --
-ALTER TABLE `rop`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+ALTER TABLE `satuan_barang`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `supplier`
 --
 ALTER TABLE `supplier`
-  MODIFY `kd_supp` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `kd_supp` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- Constraints for dumped tables
@@ -397,12 +425,6 @@ ALTER TABLE `user`
 --
 ALTER TABLE `pengajuan`
   ADD CONSTRAINT `pengajuan_ibfk_1` FOREIGN KEY (`barang`) REFERENCES `barang` (`kd_barang`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Constraints for table `rop`
---
-ALTER TABLE `rop`
-  ADD CONSTRAINT `rop_ibfk_1` FOREIGN KEY (`kd_barang`) REFERENCES `barang` (`kd_barang`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

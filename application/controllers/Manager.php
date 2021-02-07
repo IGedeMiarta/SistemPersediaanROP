@@ -45,7 +45,6 @@ class Manager extends CI_Controller
     }
     public function pengajuan_act($kd, $status)
     {
-
         $this->pegawai->update(['kd_pengajuan' => $kd], ['status' => $status], 'pengajuan');
         $this->session->set_flashdata('messege', '<script>alert("Status Pengajuan Berhasil Diubah!")</script>');
         redirect('manager/pengajuan');
