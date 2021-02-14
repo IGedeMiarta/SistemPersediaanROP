@@ -21,39 +21,6 @@
 
              <!-- Default box -->
              <?php echo $this->session->flashdata('messege'); ?>
-             <!-- <div class="accordion" id="accordionExample">
-                 <div class="card">
-                     <div class="card-header badge badge-primary" id="headingOne">
-                         <h5 class="text-dark">Tambah Satuan Barang</h5>
-                         <h2 class="mt-n5 mb-n1">
-                             <button class="btn btn-link btn-block text-right" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                 <a href="#" class="btn btn-secondary mt-2"><i class="far fa-eye"></i></a>
-                             </button>
-                         </h2>
-                     </div>
-                     <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
-                         <div class="card-body">
-                             <form method="POST" action="">
-                                 <div class="form-group row">
-                                     <label for="example-text-input" class="col-sm-2 col-form-label">Nama Satuan</label>
-                                     <div class="col-sm-10">
-                                         <input type="text" class="form-control" id="name" name="name" placeholder="Nama Satuan" value="<?= set_value('name'); ?>">
-                                         <?= form_error('name', '<small class="text-danger pl-3">', '</small>');  ?>
-                                     </div>
-                                 </div>
-                                 <div class="row">
-                                     <div class="col-sm-2">
-                                     </div>
-                                     <div class="col-sm-10">
-                                         <button type="submit" class="btn btn-primary mt-3">Simpan</button>
-                                     </div>
-                                 </div>
-
-                             </form>
-                         </div>
-                     </div>
-                 </div>
-             </div> -->
 
              <div class="card">
 

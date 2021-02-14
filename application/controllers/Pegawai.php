@@ -294,7 +294,6 @@ class Pegawai extends CI_Controller
             }
 
             $data = [
-
                 'kd_barang' => $kd_barang,
                 'kode' => $kode,
                 'waktu' => $waktu,
@@ -400,7 +399,8 @@ class Pegawai extends CI_Controller
         $jumlah = $this->input->post('jml');
         $harga = $this->input->post('harga');
         $supplier = $this->input->post('supplier');
-
+        $ss = $this->input->post('ss');
+        $lt = $this->input->post('lt');
         $data = [
             'barang' => $barang,
             'tgl_diajukan' => $tgl_diajuakan,
@@ -411,6 +411,14 @@ class Pegawai extends CI_Controller
             'status' => 'Pending'
         ];
         $this->pegawai->insert($data, 'pengajuan');
+        $data = [
+            'kd_barang' => $barang,
+            'ss' => $ss,
+            'lt' => $lt,
+            'rop' => $jumlah,
+            'status' => 1
+        ];
+        $this->pegawai->insert($data, 'rop');
         $this->session->set_flashdata('messege', '<script>alert("Data Berhasil Diajukan!");</script>');
         redirect('pegawai/pengajuan_barang');
     }

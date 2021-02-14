@@ -76,7 +76,7 @@ class Pegawai_model extends CI_Model
 
     function barang()
     {
-        return $this->db->query("SELECT * FROM barang, satuan_barang, jenis_barang WHERE barang.satuan=satuan_barang.id AND barang.jenis=jenis_barang.id")->result();
+        return $this->db->query("SELECT * FROM barang, satuan_barang, jenis_barang WHERE barang.satuan=satuan_barang.id AND barang.jenis=jenis_barang.id ORDER BY kd_barang DESC")->result();
     }
     function masuk()
     {
